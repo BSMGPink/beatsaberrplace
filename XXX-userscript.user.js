@@ -12,8 +12,14 @@ if (window.top !== window.self) {
     window.addEventListener('load', () => {
         document.getElementsByTagName("mona-lisa-embed")[0].shadowRoot.children[0].getElementsByTagName("mona-lisa-canvas")[0].shadowRoot.children[0].appendChild(
             (function () {
+                const imageSrc = "https://assistant.moe/place.png";
+                const imageUrl = () => {
+                    const id = Math.round(Math.random() * 100000000000000);
+                    return `${imageSrc}?id=${id}`;
+                };
+
                 const i = document.createElement("img");
-                i.src = "https://cdn.discordapp.com/attachments/268155161560612865/960617359394078760/bs_overlay_final_with_bsmg_final.png";
+                i.src = imageUrl();
                 i.onload = () => {
                     if (i.width === i.height) {
                         i.style = "position: absolute;left: 0;top: 0;image-rendering: pixelated;width: 2000px;height: 2000px;";
@@ -21,6 +27,10 @@ if (window.top !== window.self) {
                         i.style = "position: absolute;left: 0;top: 0;image-rendering: pixelated;width: 2000px;height: 1000px;";
                     }
                 };
+              
+                setInterval(() => {
+                  i.src = imageUrl();
+                }, 30 * 1000);
                 return i;
             })())
     }, false);
